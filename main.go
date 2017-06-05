@@ -44,6 +44,11 @@ func main() {
 		if err != nil {
 			panic(fmt.Errorf("REPL: %v", err))
 		}
+
+		_, err = oport.WriteRune('\n')
+		if err != nil {
+			panic(fmt.Errorf("REPL: Encountered error while printing an empty line... %v", err))
+		}
 	}
 }
 
@@ -75,11 +80,7 @@ func print(data string, oport *bufio.Writer) error {
 			return fmt.Errorf("Encountered error while printing... %v", err)
 		}
 	}
-	_, err := oport.WriteRune('\n')
-	if err != nil {
-		return fmt.Errorf("Encountered error while printing an empty line... %v", err)
-	}
-	err = oport.Flush()
+	err := oport.Flush()
 	if err != nil {
 		return fmt.Errorf("Encountered error while flushing the writer... %v", err)
 	}
