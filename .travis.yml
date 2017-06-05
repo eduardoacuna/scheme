@@ -4,5 +4,9 @@ language: go
 go:
   - 1.8
 
+install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+  
 script:
   - go test -v ./...
