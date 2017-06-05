@@ -266,6 +266,12 @@ func TestByteVector(t *testing.T) {
 	_, err = NewByteVector(-4, NewFixnum(255))
 	assert.Error(t, err, "it should be an error")
 
+	_, err = NewByteVector(5, NewFixnum(-1))
+	assert.Error(t, err, "it should be an error")
+
+	_, err = NewByteVector(5, NewFixnum(256))
+	assert.Error(t, err, "it should be an error")
+
 	bv2, err := NewByteVector(5, NewFixnum(255))
 	assert.NoError(t, err, "it shouldn't be an error")
 
@@ -327,10 +333,14 @@ func TestByteVector(t *testing.T) {
 	_, err = ByteVectorRef(bv, 5)
 	assert.Error(t, err, "it should be an error")
 
-	err = ByteVectorSet(nil, 0, 'x')
+	err = ByteVectorSet(nil, 0, 255)
 	assert.Error(t, err, "it should be an error")
-	err = ByteVectorSet(bv, -1, 'x')
+	err = ByteVectorSet(bv, -1, 255)
 	assert.Error(t, err, "it should be an error")
-	err = ByteVectorSet(bv, 5, 'x')
+	err = ByteVectorSet(bv, 5, 255)
+	assert.Error(t, err, "it should be an error")
+	err = ByteVectorSet(bv, 0, -1)
+	assert.Error(t, err, "it should be an error")
+	err = ByteVectorSet(bv, 0, 256)
 	assert.Error(t, err, "it should be an error")
 }
