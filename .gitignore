@@ -18,3 +18,8 @@
 
 # Binary
 scheme
+
+# GNU Global
+GPATH
+GRTAGS
+GTAGS
